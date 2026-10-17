@@ -1,0 +1,34 @@
+# ============================================================
+# Tema visual del Sistema Avícola
+# Streamlit lee este archivo automáticamente al arrancar.
+# Aquí se definen los colores base y la tipografía; los detalles
+# finos (sombras, tarjetas, etc.) están en cargar_estilos() dentro
+# de app_streamlit.py.
+# ============================================================
+
+[theme]
+base = "light"
+primaryColor = "#14532D"              # verde oscuro: color principal
+backgroundColor = "#F6F5EF"           # fondo claro, tono hueso
+secondaryBackgroundColor = "#ECEBE1"  # fondo de cajas de texto y selectores
+textColor = "#1F2A22"                 # texto casi negro, buen contraste
+borderColor = "#DAD7C8"               # bordes suaves color tierra
+baseRadius = "10px"                   # esquinas redondeadas
+# Tipografía Inter (se descarga de Google Fonts; si no hay internet,
+# Streamlit usa automáticamente una letra sin serifa del sistema).
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+
+# Colores de la barra lateral (verde oscuro con texto claro)
+[theme.sidebar]
+backgroundColor = "#14532D"
+secondaryBackgroundColor = "#1D6B3C"
+textColor = "#F1F5EE"
+primaryColor = "#BBE5C8"
+borderColor = "#2F7A4B"
+
+[client]
+# Oculta el menú de desarrollador (botón "Deploy", etc.)
+toolbarMode = "viewer"
+
+[browser]
+gatherUsageStats = false
