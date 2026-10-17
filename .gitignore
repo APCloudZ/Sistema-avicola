@@ -1,0 +1,23 @@
+# Archivos que Git NO debe subir al repositorio
+
+# Python
+__pycache__/
+*.pyc
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Copias de seguridad locales y PDFs generados
+app_streamlit_backup.py
+*.pdf
+
+# Secretos de Streamlit (nunca se suben)
+.streamlit/secrets.toml
+
+# Archivos del sistema y de editores
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/

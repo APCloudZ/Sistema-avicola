@@ -1,0 +1,255 @@
+{
+    "gallineros": {
+        "G1": {
+            "nombre": "Norte",
+            "aves": 62,
+            "capacidad_maxima": 80,
+            "fecha_creacion": "2026-09-15",
+            "movimientos": [
+                {
+                    "fecha": "2026-09-15",
+                    "tipo": "Alta inicial",
+                    "cantidad": 50
+                },
+                {
+                    "fecha": "2026-09-29",
+                    "tipo": "Baja",
+                    "cantidad": -3
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "tipo": "Ajuste manual",
+                    "cantidad": 15
+                }
+            ],
+            "recolecciones": [
+                {
+                    "fecha": "2026-09-17",
+                    "buenos": 30,
+                    "danados": 2
+                },
+                {
+                    "fecha": "2026-09-19",
+                    "buenos": 28,
+                    "danados": 1
+                },
+                {
+                    "fecha": "2026-09-26",
+                    "buenos": 29,
+                    "danados": 0
+                },
+                {
+                    "fecha": "2026-10-01",
+                    "buenos": 31,
+                    "danados": 2
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "buenos": 27,
+                    "danados": 1
+                }
+            ]
+        },
+        "G2": {
+            "nombre": "Sur",
+            "aves": 18,
+            "capacidad_maxima": 40,
+            "fecha_creacion": "2026-09-20",
+            "movimientos": [
+                {
+                    "fecha": "2026-09-20",
+                    "tipo": "Alta inicial",
+                    "cantidad": 35
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "tipo": "Baja",
+                    "cantidad": -15
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "tipo": "Baja",
+                    "cantidad": -2
+                }
+            ],
+            "recolecciones": [
+                {
+                    "fecha": "2026-09-21",
+                    "buenos": 20,
+                    "danados": 1
+                },
+                {
+                    "fecha": "2026-09-25",
+                    "buenos": 22,
+                    "danados": 0
+                },
+                {
+                    "fecha": "2026-10-02",
+                    "buenos": 19,
+                    "danados": 2
+                }
+            ]
+        },
+        "G3": {
+            "nombre": "Oeste ",
+            "aves": 30,
+            "capacidad_maxima": 37,
+            "fecha_creacion": "2026-09-30",
+            "movimientos": [
+                {
+                    "fecha": "2026-09-30",
+                    "tipo": "Alta inicial",
+                    "cantidad": 20
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "tipo": "Ajuste manual",
+                    "cantidad": -5
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "tipo": "Ajuste manual",
+                    "cantidad": 5
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "tipo": "Ajuste manual",
+                    "cantidad": 42
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "tipo": "Ajuste manual",
+                    "cantidad": -42
+                },
+                {
+                    "fecha": "2026-10-08",
+                    "tipo": "Ajuste manual",
+                    "cantidad": 42
+                },
+                {
+                    "fecha": "2026-10-08",
+                    "tipo": "Ajuste manual",
+                    "cantidad": -32
+                }
+            ],
+            "recolecciones": [
+                {
+                    "fecha": "2026-10-03",
+                    "buenos": 12,
+                    "danados": 0
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "buenos": 20,
+                    "danados": 1
+                }
+            ],
+            "estado": "Pausado"
+        },
+        "G4": {
+            "nombre": "Oeste (copia)",
+            "aves": 20,
+            "capacidad_maxima": 15,
+            "recolecciones": [
+                {
+                    "fecha": "2026-10-04",
+                    "buenos": 40,
+                    "danados": 3
+                }
+            ],
+            "fecha_creacion": "2026-10-04",
+            "movimientos": [
+                {
+                    "fecha": "2026-10-04",
+                    "tipo": "Alta inicial",
+                    "cantidad": 0
+                },
+                {
+                    "fecha": "2026-10-04",
+                    "tipo": "Ajuste manual",
+                    "cantidad": 53
+                },
+                {
+                    "fecha": "2026-10-08",
+                    "tipo": "Ajuste manual",
+                    "cantidad": 9
+                },
+                {
+                    "fecha": "2026-10-08",
+                    "tipo": "Ajuste manual",
+                    "cantidad": -42
+                }
+            ],
+            "estado": "Inactivo"
+        }
+    },
+    "alimento": {
+        "inventario_kg": 86.0,
+        "precio_kg": 2200.0,
+        "compras": [
+            {
+                "fecha": "2026-09-16",
+                "kilos": 80.0,
+                "costo": 160000.0
+            },
+            {
+                "fecha": "2026-09-26",
+                "kilos": 60.0,
+                "costo": 132000.0
+            }
+        ],
+        "consumos": [
+            {
+                "fecha": "2026-09-18",
+                "codigo": "G1",
+                "kilos": 15.0
+            },
+            {
+                "fecha": "2026-09-23",
+                "codigo": "G2",
+                "kilos": 10.0
+            },
+            {
+                "fecha": "2026-09-27",
+                "codigo": "G1",
+                "kilos": 14.0
+            },
+            {
+                "fecha": "2026-09-29",
+                "codigo": "G3",
+                "kilos": 6.0
+            },
+            {
+                "fecha": "2026-10-04",
+                "codigo": "G2",
+                "kilos": 9.0
+            }
+        ],
+        "gastos_adicionales": [
+            {
+                "fecha": "2026-09-20",
+                "categoria": "Medicina",
+                "concepto": "Vacunas Newcastle",
+                "valor": 45000.0
+            },
+            {
+                "fecha": "2026-09-25",
+                "categoria": "Empaque",
+                "concepto": "Bandejas de cartón",
+                "valor": 18000.0
+            },
+            {
+                "fecha": "2026-09-28",
+                "categoria": "Medicina",
+                "concepto": "Vitaminas",
+                "valor": 22000.0
+            },
+            {
+                "fecha": "2026-10-03",
+                "categoria": "Otro",
+                "concepto": "Transporte",
+                "valor": 12000.0
+            }
+        ]
+    }
+}
