@@ -17,18 +17,6 @@ st.set_page_config(page_title="Sistema Avícola", page_icon=":material/egg:", la
 COLOR_BUENOS = "#14532D"    # verde oscuro para huevos buenos
 COLOR_DANADOS = "#D9776A"   # rojo suave para huevos dañados
 
-# Íconos del menú lateral. Streamlit trae una colección de íconos de
-# línea ("Material"); se escriben así: ":material/nombre_del_icono:".
-ICONOS_MENU = {
-    "Dashboard": ":material/dashboard:",
-    "Gallineros": ":material/home_work:",
-    "Producción": ":material/monitoring:",
-    "Registrar Postura": ":material/egg:",
-    "Alimentación": ":material/grass:",
-    "Reportes": ":material/bar_chart:",
-    "Exportar": ":material/download:",
-}
-
 COLUMNAS_TABLAS = {
     "fecha": "Fecha",
     "buenos": "Huevos buenos",
@@ -49,283 +37,10 @@ COLUMNAS_TABLAS = {
 # ============================================================
 
 def cargar_estilos():
-    st.markdown(
-        """
-        <style>
-        /* ---------- 1. Ocultar menú, encabezado y pie de Streamlit ---------- */
-        /* Ojo: no se oculta toda la barra superior (stToolbar) porque ahí
-           está el botón para abrir el menú lateral en ventanas pequeñas. */
-        #MainMenu, footer,
-        div[data-testid="stToolbarActions"],
-        div[data-testid="stMainMenu"],
-        div[data-testid="stAppDeployButton"],
-        div[data-testid="stDecoration"],
-        div[data-testid="stStatusWidget"] {
-            display: none !important;
-        }
-        /* El encabezado se vuelve invisible, pero NO se borra: ahí vive el
-           botón para volver a abrir la barra lateral en ventanas pequeñas. */
-        header[data-testid="stHeader"] {
-            background: transparent !important;
-        }
-
-        /* ---------- 2. Márgenes generales de la página ---------- */
-        .block-container {
-            padding-top: 2rem;
-            padding-bottom: 3rem;
-            max-width: 1200px;
-        }
-
-        /* ---------- 3. Títulos con jerarquía clara ---------- */
-        h1 {
-            color: #14532D !important;
-            font-size: 2.3rem !important;
-            font-weight: 700 !important;
-            letter-spacing: -0.02em;
-            padding-bottom: 0.2rem !important;
-            margin-bottom: 0 !important;
-        }
-        h2, h3 {
-            color: #1F3D2B !important;
-            font-size: 1.4rem !important;
-            font-weight: 600 !important;
-            margin-top: 1.2rem !important;
-        }
-        h5 {
-            color: #14532D;
-            font-weight: 600 !important;
-        }
-
-        /* ---------- 4. Tarjetas de métricas (st.metric) ---------- */
-        div[data-testid="stMetric"] {
-            background: #FFFFFF;
-            border: 1px solid #E3E0D1;
-            border-radius: 14px;
-            padding: 16px 18px;
-            box-shadow: 0 2px 8px rgba(20, 83, 45, 0.07);
-        }
-        /* white-space: normal evita que la etiqueta se corte con "..." */
-        [data-testid="stMetricLabel"],
-        [data-testid="stMetricLabel"] *,
-        [data-testid="stMetricValue"],
-        [data-testid="stMetricValue"] * {
-            white-space: normal !important;
-            overflow: visible !important;
-        }
-        [data-testid="stMetricLabel"] p {
-            color: #6B6A5E;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        div[data-testid="stMetricValue"] {
-            color: #14532D;
-            font-weight: 700;
-            /* clamp: el número se achica solo en ventanas pequeñas */
-            font-size: clamp(1.2rem, 1.9vw, 1.75rem);
-        }
-
-        /* ---------- 5. Botones ---------- */
-        /* Todos los botones: esquinas redondeadas y transición suave */
-        .stButton button, .stDownloadButton button {
-            white-space: normal;   /* textos largos bajan de línea en vez de cortarse */
-            border-radius: 10px;
-            font-weight: 600;
-            padding: 0.5rem 1.1rem;
-            transition: all 0.15s ease;
-        }
-        .stButton button *, .stDownloadButton button * {
-            white-space: normal !important;
-            text-overflow: clip !important;
-        }
-        /* Botón primario: verde lleno */
-        button[data-testid="stBaseButton-primary"] {
-            background: #14532D;
-            border: 1px solid #14532D;
-            color: #FFFFFF;
-        }
-        button[data-testid="stBaseButton-primary"]:hover {
-            background: #0F3F22;
-            border-color: #0F3F22;
-            box-shadow: 0 4px 12px rgba(20, 83, 45, 0.25);
-            transform: translateY(-1px);
-        }
-        /* Botón secundario: fondo blanco con borde verde */
-        button[data-testid="stBaseButton-secondary"] {
-            background: #FFFFFF;
-            border: 1px solid #B9C7B4;
-            color: #14532D;
-        }
-        button[data-testid="stBaseButton-secondary"]:hover {
-            background: #EEF5EC;
-            border-color: #14532D;
-            color: #14532D;
-            transform: translateY(-1px);
-        }
-
-        /* ---------- 6. Barra lateral ---------- */
-        /* Logo: un cuadrado redondeado con las iniciales "SA" */
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: #14532D;
-            color: #FFFFFF;
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 0.02em;
-        }
-        .logo-claro {
-            background: #F1F5EE;
-            color: #14532D;
-        }
-        .sidebar-marca {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            margin-bottom: 1.4rem;
-        }
-        .sidebar-titulo {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            line-height: 1.2;
-        }
-        .sidebar-subtitulo {
-            font-size: 0.8rem;
-            color: #BBE5C8;
-        }
-        /* Etiqueta "Menú" en mayúsculas pequeñas */
-        section[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
-            text-transform: uppercase;
-            font-size: 0.75rem !important;
-            letter-spacing: 0.08em;
-            color: #A9CDB4 !important;
-        }
-        /* El menú ocupa todo el ancho de la barra lateral */
-        section[data-testid="stSidebar"] div[data-testid="stElementContainer"]:has(div[role="radiogroup"]),
-        section[data-testid="stSidebar"] div[data-testid="stRadio"],
-        section[data-testid="stSidebar"] div[role="radiogroup"] {
-            width: 100% !important;
-        }
-        /* Cada opción del menú como un renglón amplio */
-        section[data-testid="stSidebar"] div[role="radiogroup"] label {
-            width: 100%;
-            padding: 0.55rem 0.75rem;
-            margin-bottom: 0.2rem;
-            border-radius: 10px;
-            transition: background 0.15s ease;
-        }
-        section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-        /* Se ocultan los circulitos del radio: el menú parece una lista */
-        section[data-testid="stSidebar"] label[data-testid="stRadioOption"] > div > div > div:first-child:not([data-testid]) {
-            display: none;
-        }
-        /* Opción seleccionada: resaltada */
-        section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-            background: rgba(255, 255, 255, 0.16);
-            font-weight: 600;
-        }
-        /* Botón "Cerrar sesión": transparente con borde claro */
-        .st-key-btn_cerrar_sesion button {
-            background: transparent !important;
-            border: 1px solid rgba(255, 255, 255, 0.35) !important;
-            color: #F1F5EE !important;
-        }
-        .st-key-btn_cerrar_sesion button:hover {
-            background: rgba(217, 119, 106, 0.25) !important;
-            border-color: #D9776A !important;
-        }
-
-        /* ---------- 7. Pantalla de login (tarjeta centrada) ---------- */
-        .st-key-tarjeta_login {
-            background: #FFFFFF;
-            border: 1px solid #E3E0D1;
-            border-radius: 18px;
-            padding: 2.5rem 2.25rem;
-            margin-top: 8vh;
-            box-shadow: 0 10px 30px rgba(20, 83, 45, 0.10);
-        }
-        .login-marca {
-            margin-bottom: 0.25rem;
-        }
-
-        /* ---------- 8. Tablas, alertas, expanders y selectores ---------- */
-        div[data-testid="stDataFrame"] {
-            border: 1px solid #E3E0D1;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        div[data-testid="stAlert"] {
-            border-radius: 12px;
-        }
-        div[data-testid="stExpander"] details {
-            background: #FFFFFF;
-            border: 1px solid #E3E0D1;
-            border-radius: 12px;
-        }
-        div[data-testid="stExpander"] summary {
-            font-weight: 600;
-            color: #1F3D2B;
-        }
-        div[data-baseweb="select"] > div,
-        div[data-baseweb="input"] {
-            border-radius: 10px;
-        }
-
-        /* ---------- 9. Estados vacíos (cuando no hay datos) ---------- */
-        .estado-vacio {
-            text-align: center;
-            background: #FFFFFF;
-            border: 1px dashed #C9C5B2;
-            border-radius: 14px;
-            padding: 2rem 1.5rem;
-            margin: 0.5rem 0 1rem 0;
-        }
-        /* Ícono dentro de un círculo verde claro (letra de íconos Material) */
-        .estado-vacio .icono {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: #E6F0E3;
-            color: #14532D;
-            font-family: "Material Symbols Rounded";
-            font-size: 30px;
-        }
-        .estado-vacio .titulo {
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: #1F3D2B;
-            margin-top: 0.4rem;
-        }
-        .estado-vacio .mensaje {
-            color: #6B6A5E;
-            font-size: 0.92rem;
-            margin-top: 0.2rem;
-        }
-
-        /* ---------- 10. Pantallas pequeñas ---------- */
-        @media (max-width: 900px) {
-            .block-container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            .st-key-tarjeta_login {
-                padding: 1.75rem 1.25rem;
-                margin-top: 2vh;
-            }
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    """El diseño de la app vive en estilos.css (junto a este archivo)."""
+    ruta = os.path.join(os.path.dirname(os.path.abspath(__file__)), "estilos.css")
+    with open(ruta, encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
 def mostrar_estado_vacio(icono, titulo, mensaje=""):
@@ -386,9 +101,53 @@ def promedio_postura(datos):
 
 def totales_granja(gallineros):
     """Huevos buenos y dañados sumando TODOS los gallineros a la vez."""
-    buenos = sum(r["buenos"] for g in gallineros.values() for r in g["recolecciones"])
-    danados = sum(r["danados"] for g in gallineros.values() for r in g["recolecciones"])
-    return buenos, danados
+    pares = [buenos_danados(g) for g in gallineros.values()]
+    return sum(b for b, _ in pares), sum(d for _, d in pares)
+
+
+def kilos_consumidos(alimento, codigo):
+    """Kilos de alimento que consumió UN gallinero."""
+    return sum(c["kilos"] for c in alimento["consumos"] if c["codigo"] == codigo)
+
+
+def balance_categorias(alimento):
+    """Gasto por categoría: {'Alimento', 'Medicinas', 'Empaques', 'Otros'}."""
+    gastos = gastos_por_categoria(alimento)
+    return {
+        "Alimento": sum(c["costo"] for c in alimento["compras"]),
+        "Medicinas": gastos["Medicina"],
+        "Empaques": gastos["Empaque"],
+        "Otros": gastos["Otro"],
+    }
+
+
+def nuevo_gallinero(nombre, aves, capacidad):
+    """Diccionario de un gallinero recién creado (sin recolecciones)."""
+    hoy = str(date.today())
+    return {
+        "nombre": nombre,
+        "aves": aves,
+        "capacidad_maxima": capacidad,
+        "estado": "Activo",  # estado manual, el usuario lo cambia cuando quiera
+        "recolecciones": [],
+        "fecha_creacion": hoy,
+        "movimientos": [{"fecha": hoy, "tipo": "Alta inicial", "cantidad": aves}],
+    }
+
+
+def guardar_y_recargar(mensaje):
+    """Guarda los datos, muestra el mensaje de éxito y recarga la pantalla."""
+    guardar_datos()
+    st.success(mensaje)
+    st.rerun()
+
+
+def tabla(filas, mensaje_vacio):
+    """Muestra una tabla con el formato común, o un aviso si está vacía."""
+    if filas:
+        st.dataframe(filas, width="stretch", hide_index=True, column_config=COLUMNAS_TABLAS)
+    else:
+        st.info(mensaje_vacio)
 
 
 def gastos_por_categoria(alimento):
@@ -502,15 +261,11 @@ def generar_pdf_resumen_general():
         pdf_linea(pdf, "Sin gallineros registrados.", tamano=10)
     pdf.ln(4)
 
-    gasto_alimento = sum(c["costo"] for c in alimento["compras"])
-    gastos_cat = gastos_por_categoria(alimento)
-
+    balance = balance_categorias(alimento)
     pdf_linea(pdf, "Presupuesto por categoria", negrita=True, tamano=12)
-    pdf_linea(pdf, f"Alimento: ${gasto_alimento:,.0f}")
-    pdf_linea(pdf, f"Medicinas: ${gastos_cat['Medicina']:,.0f}")
-    pdf_linea(pdf, f"Empaques: ${gastos_cat['Empaque']:,.0f}")
-    pdf_linea(pdf, f"Otros: ${gastos_cat['Otro']:,.0f}")
-    pdf_linea(pdf, f"Total: ${gasto_alimento + sum(gastos_cat.values()):,.0f}")
+    for categoria, valor in balance.items():
+        pdf_linea(pdf, f"{categoria}: ${valor:,.0f}")
+    pdf_linea(pdf, f"Total: ${sum(balance.values()):,.0f}")
 
     return pdf_a_bytes(pdf)
 
@@ -521,8 +276,8 @@ def generar_pdf_resumen_gallinero(codigo):
 
     huevos = total_huevos(datos)
     promedio = promedio_postura(datos)
-    kilos_consumidos = sum(c["kilos"] for c in alimento["consumos"] if c["codigo"] == codigo)
-    costo_estimado = kilos_consumidos * alimento["precio_kg"]
+    kilos = kilos_consumidos(alimento, codigo)
+    costo_estimado = kilos * alimento["precio_kg"]
 
     pdf = FPDF()
     pdf.add_page()
@@ -534,7 +289,7 @@ def generar_pdf_resumen_gallinero(codigo):
     pdf_linea(pdf, f"Aves: {datos['aves']}")
     pdf_linea(pdf, f"Huevos totales: {huevos}")
     pdf_linea(pdf, f"Promedio de postura por gallina: {promedio:.2f}")
-    pdf_linea(pdf, f"Alimento consumido: {kilos_consumidos:.1f} kg")
+    pdf_linea(pdf, f"Alimento consumido: {kilos:.1f} kg")
     pdf_linea(pdf, f"Costo estimado en alimento: ${costo_estimado:,.0f}", salto_despues=4)
 
     pdf_linea(pdf, "Historico de recoleccion", negrita=True, tamano=12)
@@ -646,18 +401,8 @@ def pantalla_gallineros():
             elif codigo in gallineros:
                 st.error(f"Ya existe un gallinero con el código '{codigo}'.")
             else:
-                gallineros[codigo] = {
-                    "nombre": nombre,
-                    "aves": int(aves),
-                    "capacidad_maxima": int(capacidad),
-                    "estado": "Activo",  # estado manual, el usuario lo cambia cuando quiera
-                    "recolecciones": [],
-                    "fecha_creacion": str(date.today()),
-                    "movimientos": [{"fecha": str(date.today()), "tipo": "Alta inicial", "cantidad": int(aves)}],
-                }
-                guardar_datos()
-                st.success(f"Gallinero '{nombre}' ({codigo}) registrado.")
-                st.rerun()
+                gallineros[codigo] = nuevo_gallinero(nombre, int(aves), int(capacidad))
+                guardar_y_recargar(f"Gallinero '{nombre}' ({codigo}) registrado.")
 
     if gallineros:
         with st.expander("Modificar, dar de baja, duplicar o eliminar un gallinero", icon=":material/edit:"):
@@ -692,9 +437,7 @@ def pantalla_gallineros():
                     datos_sel.setdefault("movimientos", []).append(
                         {"fecha": str(date.today()), "tipo": "Ajuste manual", "cantidad": diferencia}
                     )
-                guardar_datos()
-                st.success("Gallinero actualizado.")
-                st.rerun()
+                guardar_y_recargar("Gallinero actualizado.")
 
             st.divider()
             st.markdown("##### Dar de baja aves (venta o muerte)")
@@ -709,16 +452,11 @@ def pantalla_gallineros():
                     datos_sel.setdefault("movimientos", []).append(
                         {"fecha": str(date.today()), "tipo": "Baja", "cantidad": -int(baja)}
                     )
-                    guardar_datos()
-                    st.success(f"Se dieron de baja {int(baja)} aves.")
-                    st.rerun()
+                    guardar_y_recargar(f"Se dieron de baja {int(baja)} aves.")
 
             st.markdown("##### Historial de movimientos de aves")
-            movimientos = datos_sel.get("movimientos", [])
-            if movimientos:
-                st.dataframe(movimientos, width="stretch", hide_index=True, column_config=COLUMNAS_TABLAS)
-            else:
-                st.caption("Sin movimientos registrados (gallinero creado antes de esta función).")
+            tabla(datos_sel.get("movimientos", []),
+                  "Sin movimientos registrados (gallinero creado antes de esta función).")
 
             st.divider()
             st.markdown("##### Duplicar como plantilla")
@@ -730,51 +468,38 @@ def pantalla_gallineros():
                 elif nuevo_codigo_dup in gallineros:
                     st.error(f"Ya existe un gallinero con el código '{nuevo_codigo_dup}'.")
                 else:
-                    gallineros[nuevo_codigo_dup] = {
-                        "nombre": f"{datos_sel['nombre']} (copia)",
-                        "aves": 0,
-                        "capacidad_maxima": datos_sel.get("capacidad_maxima", 0),
-                        "recolecciones": [],
-                        "fecha_creacion": str(date.today()),
-                        "movimientos": [{"fecha": str(date.today()), "tipo": "Alta inicial", "cantidad": 0}],
-                    }
-                    guardar_datos()
-                    st.success(f"Gallinero '{nuevo_codigo_dup}' creado como plantilla.")
-                    st.rerun()
+                    gallineros[nuevo_codigo_dup] = nuevo_gallinero(
+                        f"{datos_sel['nombre']} (copia)", 0, datos_sel.get("capacidad_maxima", 0)
+                    )
+                    guardar_y_recargar(f"Gallinero '{nuevo_codigo_dup}' creado como plantilla.")
 
             st.divider()
             st.markdown("##### Eliminar gallinero")
             confirmar = st.checkbox("Confirmo que quiero eliminar este gallinero permanentemente", key="confirmar_eliminar")
             if st.button("Eliminar gallinero", disabled=not confirmar, icon=":material/delete:"):
                 del gallineros[codigo_sel]
-                guardar_datos()
-                st.success("Gallinero eliminado.")
-                st.rerun()
+                guardar_y_recargar("Gallinero eliminado.")
 
     st.subheader("Lista de gallineros activos")
     col_busqueda, col_orden = st.columns([2, 1])
     busqueda = col_busqueda.text_input("Buscar por nombre o código", key="busqueda_gallinero",
                                        placeholder="Ej.: G1 o Norte")
-    orden = col_orden.selectbox(
-        "Ordenar por",
-        ["Código (A-Z)", "Código (Z-A)", "Nombre (A-Z)", "Nombre (Z-A)"],
-        key="orden_gallineros",
-    )
+    # Cada opción de orden: (criterio, ¿al revés?)
+    por_codigo = lambda c: c
+    por_nombre = lambda c: gallineros[c]["nombre"].lower()
+    ordenes = {
+        "Código (A-Z)": (por_codigo, False), "Código (Z-A)": (por_codigo, True),
+        "Nombre (A-Z)": (por_nombre, False), "Nombre (Z-A)": (por_nombre, True),
+    }
+    orden = col_orden.selectbox("Ordenar por", list(ordenes), key="orden_gallineros")
 
     if not gallineros:
         mostrar_estado_vacio("home_work", "No hay gallineros registrados todavía.",
                              "Abre 'Registrar nuevo gallinero' para crear el primero.")
         return
 
-    codigos_ordenados = list(gallineros.keys())
-    if orden == "Código (A-Z)":
-        codigos_ordenados.sort()
-    elif orden == "Código (Z-A)":
-        codigos_ordenados.sort(reverse=True)
-    elif orden == "Nombre (A-Z)":
-        codigos_ordenados.sort(key=lambda c: gallineros[c]["nombre"].lower())
-    else:
-        codigos_ordenados.sort(key=lambda c: gallineros[c]["nombre"].lower(), reverse=True)
+    criterio, al_reves = ordenes[orden]
+    codigos_ordenados = sorted(gallineros, key=criterio, reverse=al_reves)
 
     filas = []
     for codigo in codigos_ordenados:
@@ -862,14 +587,10 @@ def pantalla_postura():
             if colA.button("Guardar cambios"):
                 registro["buenos"] = int(nuevos_buenos)
                 registro["danados"] = int(nuevos_danados)
-                guardar_datos()
-                st.success("Recolección actualizada.")
-                st.rerun()
+                guardar_y_recargar("Recolección actualizada.")
             if colB.button("Eliminar esta recolección", icon=":material/delete:"):
                 recolecciones.pop(idx_r)
-                guardar_datos()
-                st.success("Recolección eliminada.")
-                st.rerun()
+                guardar_y_recargar("Recolección eliminada.")
 
 
 # ============================================================
@@ -939,9 +660,7 @@ def pantalla_produccion():
 
     if en_rango:
         st.metric(f"Huevos entre {desde} y {hasta}", sum(r["buenos"] + r["danados"] for r in en_rango))
-        st.dataframe(en_rango, width="stretch", hide_index=True, column_config=COLUMNAS_TABLAS)
-    else:
-        st.info("No hay recolecciones registradas en ese rango de fechas.")
+    tabla(en_rango, "No hay recolecciones registradas en ese rango de fechas.")
 
     st.subheader("Histórico de recolección completo")
     if datos["recolecciones"]:
@@ -975,9 +694,7 @@ def pantalla_alimentacion():
                 st.error("El precio debe ser mayor a 0.")
             else:
                 alimento["precio_kg"] = nuevo_precio
-                guardar_datos()
-                st.success("Precio actualizado.")
-                st.rerun()
+                guardar_y_recargar("Precio actualizado.")
 
     with st.expander("Registrar compra de alimento", icon=":material/add_shopping_cart:"):
         kilos_compra = st.number_input("Kilos comprados", min_value=0.0, step=1.0, key="compra_kilos")
@@ -989,9 +706,7 @@ def pantalla_alimentacion():
                 alimento["compras"].append({"fecha": str(date.today()), "kilos": kilos_compra, "costo": costo_compra})
                 alimento["inventario_kg"] += kilos_compra
                 alimento["precio_kg"] = costo_compra / kilos_compra
-                guardar_datos()
-                st.success("Compra registrada.")
-                st.rerun()
+                guardar_y_recargar("Compra registrada.")
 
     with st.expander("Modificar o eliminar una compra", icon=":material/edit:"):
         idx_c, compra = seleccionar_por_indice(
@@ -1009,15 +724,11 @@ def pantalla_alimentacion():
                 alimento["inventario_kg"] = max(0.0, alimento["inventario_kg"] - compra["kilos"] + nuevos_kilos)
                 compra["kilos"] = nuevos_kilos
                 compra["costo"] = nuevo_costo
-                guardar_datos()
-                st.success("Compra actualizada.")
-                st.rerun()
+                guardar_y_recargar("Compra actualizada.")
             if colB.button("Eliminar esta compra", icon=":material/delete:"):
                 alimento["inventario_kg"] = max(0.0, alimento["inventario_kg"] - compra["kilos"])
                 alimento["compras"].pop(idx_c)
-                guardar_datos()
-                st.success("Compra eliminada.")
-                st.rerun()
+                guardar_y_recargar("Compra eliminada.")
 
     with st.expander("Registrar consumo diario", icon=":material/remove:"):
         if not gallineros:
@@ -1052,9 +763,7 @@ def pantalla_alimentacion():
                 alimento["gastos_adicionales"].append(
                     {"fecha": str(date.today()), "categoria": categoria, "concepto": concepto, "valor": valor}
                 )
-                guardar_datos()
-                st.success("Gasto registrado.")
-                st.rerun()
+                guardar_y_recargar("Gasto registrado.")
 
     # RF46: eliminar un gasto, reutilizando el mismo ayudante de siempre
     with st.expander("Eliminar un gasto registrado", icon=":material/delete:"):
@@ -1068,21 +777,13 @@ def pantalla_alimentacion():
             confirmar_gasto = st.checkbox("Confirmo que quiero eliminar este gasto", key="confirmar_gasto")
             if st.button("Eliminar gasto", disabled=not confirmar_gasto, icon=":material/delete:"):
                 alimento["gastos_adicionales"].pop(idx_g)
-                guardar_datos()
-                st.success("Gasto eliminado.")
-                st.rerun()
+                guardar_y_recargar("Gasto eliminado.")
 
     st.subheader("Historial de compras")
-    if alimento["compras"]:
-        st.dataframe(alimento["compras"], width="stretch", hide_index=True, column_config=COLUMNAS_TABLAS)
-    else:
-        st.info("No hay compras registradas todavía.")
+    tabla(alimento["compras"], "No hay compras registradas todavía.")
 
     st.subheader("Historial de gastos")
-    if alimento["gastos_adicionales"]:
-        st.dataframe(alimento["gastos_adicionales"], width="stretch", hide_index=True, column_config=COLUMNAS_TABLAS)
-    else:
-        st.info("No hay gastos registrados todavía.")
+    tabla(alimento["gastos_adicionales"], "No hay gastos registrados todavía.")
 
 
 # ============================================================
@@ -1098,14 +799,13 @@ def pantalla_reportes():
     st.subheader("Resumen general de la granja")
     total_b, total_d = totales_granja(gallineros)
     total_kg_consumidos = sum(c["kilos"] for c in alimento["consumos"])
-    gasto_alimento = sum(c["costo"] for c in alimento["compras"])
-    gastos_cat = gastos_por_categoria(alimento)
+    balance = balance_categorias(alimento)
 
     g1, g2, g3, g4 = st.columns(4)
     g1.metric("Producción total (huevos)", total_b + total_d)
     g2.metric("Alimento consumido", f"{total_kg_consumidos:.1f} kg")
-    g3.metric("Gasto en alimento", f"${gasto_alimento:,.0f}")
-    g4.metric("Gasto total", f"${gasto_alimento + sum(gastos_cat.values()):,.0f}")
+    g3.metric("Gasto en alimento", f"${balance['Alimento']:,.0f}")
+    g4.metric("Gasto total", f"${sum(balance.values()):,.0f}")
 
     st.divider()
 
@@ -1120,16 +820,10 @@ def pantalla_reportes():
     col_rec, col_cons = st.columns(2)
     with col_rec:
         st.markdown("**Recolecciones ese día**")
-        if recolecciones_dia:
-            st.dataframe(recolecciones_dia, width="stretch", hide_index=True, column_config=COLUMNAS_TABLAS)
-        else:
-            st.info("Sin recolecciones ese día.")
+        tabla(recolecciones_dia, "Sin recolecciones ese día.")
     with col_cons:
         st.markdown("**Consumos de alimento ese día**")
-        if consumos_dia:
-            st.dataframe(consumos_dia, width="stretch", hide_index=True, column_config=COLUMNAS_TABLAS)
-        else:
-            st.info("Sin consumos ese día.")
+        tabla(consumos_dia, "Sin consumos ese día.")
 
     st.divider()
 
@@ -1141,11 +835,8 @@ def pantalla_reportes():
     st.divider()
 
     st.subheader("Balance presupuestal por categoría")
-    r1, r2, r3, r4 = st.columns(4)
-    r1.metric("Alimento", f"${gasto_alimento:,.0f}")
-    r2.metric("Medicinas", f"${gastos_cat['Medicina']:,.0f}")
-    r3.metric("Empaques", f"${gastos_cat['Empaque']:,.0f}")
-    r4.metric("Otros", f"${gastos_cat['Otro']:,.0f}")
+    for col, (categoria, valor) in zip(st.columns(4), balance.items()):
+        col.metric(categoria, f"${valor:,.0f}")
 
     st.divider()
 
@@ -1156,12 +847,12 @@ def pantalla_reportes():
 
     codigo = st.selectbox("Selecciona un gallinero", list(gallineros.keys()), key="reporte_gallinero")
     datos = gallineros[codigo]
-    kilos_consumidos = sum(c["kilos"] for c in alimento["consumos"] if c["codigo"] == codigo)
+    kilos = kilos_consumidos(alimento, codigo)
 
     r1, r2, r3 = st.columns(3)
     r1.metric("Huevos totales", total_huevos(datos))
-    r2.metric("Alimento consumido", f"{kilos_consumidos:.1f} kg")
-    r3.metric("Costo estimado", f"${kilos_consumidos * alimento['precio_kg']:,.0f}")
+    r2.metric("Alimento consumido", f"{kilos:.1f} kg")
+    r3.metric("Costo estimado", f"${kilos * alimento['precio_kg']:,.0f}")
 
 
 # ============================================================
@@ -1200,9 +891,7 @@ def pantalla_exportar():
     if st.button("Reiniciar todos los datos", disabled=not confirmar_reset, icon=":material/delete_forever:"):
         st.session_state.gallineros = {}
         st.session_state.alimento = alimento_vacio()
-        guardar_datos()
-        st.success("Todos los datos se reiniciaron.")
-        st.rerun()
+        guardar_y_recargar("Todos los datos se reiniciaron.")
 
 
 # ============================================================
@@ -1223,12 +912,12 @@ def main():
             '</div>',
             unsafe_allow_html=True,
         )
-        opciones = ["Dashboard", "Gallineros", "Producción", "Registrar Postura", "Alimentación", "Reportes", "Exportar"]
+        opciones = list(MENU)
         # format_func solo cambia lo que se MUESTRA (ícono + nombre);
         # el valor elegido sigue siendo el mismo texto de siempre.
         opcion = st.radio(
             "Menú", opciones, index=opciones.index(st.session_state.pagina),
-            format_func=lambda nombre: f"{ICONOS_MENU[nombre]} {nombre}",
+            format_func=lambda nombre: f"{MENU[nombre][0]} {nombre}",
         )
         st.session_state.pagina = opcion
 
@@ -1238,16 +927,19 @@ def main():
             st.session_state.autenticado = False
             st.rerun()
 
-    pantallas = {
-        "Dashboard": pantalla_dashboard,
-        "Gallineros": pantalla_gallineros,
-        "Producción": pantalla_produccion,
-        "Registrar Postura": pantalla_postura,
-        "Alimentación": pantalla_alimentacion,
-        "Reportes": pantalla_reportes,
-        "Exportar": pantalla_exportar,
-    }
-    pantallas[st.session_state.pagina]()
+    MENU[st.session_state.pagina][1]()
+
+
+# Cada opción del menú: nombre -> (ícono Material, función de la pantalla)
+MENU = {
+    "Dashboard": (":material/dashboard:", pantalla_dashboard),
+    "Gallineros": (":material/home_work:", pantalla_gallineros),
+    "Producción": (":material/monitoring:", pantalla_produccion),
+    "Registrar Postura": (":material/egg:", pantalla_postura),
+    "Alimentación": (":material/grass:", pantalla_alimentacion),
+    "Reportes": (":material/bar_chart:", pantalla_reportes),
+    "Exportar": (":material/download:", pantalla_exportar),
+}
 
 
 main()
