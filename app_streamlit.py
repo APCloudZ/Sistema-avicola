@@ -1,9 +1,5 @@
 """
 Sistema de Gestión Avícola - Interfaz Web (Streamlit)
-Versión optimizada: los cálculos que se repetían en varias pantallas
-(total de huevos, promedio, gastos por categoría, líneas de PDF) ahora
-viven en UNA sola función cada uno, en la sección de "AYUDANTES" de
-más abajo. El resto del archivo los reutiliza en vez de recalcularlos.
 """
 
 import streamlit as st
@@ -33,8 +29,6 @@ ICONOS_MENU = {
     "Exportar": ":material/download:",
 }
 
-# Nombres bonitos y formato de las columnas de las tablas (st.dataframe).
-# Solo cambia cómo se VEN las columnas; los datos guardados no cambian.
 COLUMNAS_TABLAS = {
     "fecha": "Fecha",
     "buenos": "Huevos buenos",
@@ -52,9 +46,6 @@ COLUMNAS_TABLAS = {
 
 # ============================================================
 # ESTILOS VISUALES (CSS)
-# Todo el diseño "fino" de la app está aquí, en un solo lugar.
-# Los colores base y la letra están en .streamlit/config.toml.
-# Esta función NO cambia ningún dato ni cálculo: solo la apariencia.
 # ============================================================
 
 def cargar_estilos():
@@ -358,9 +349,6 @@ cargar_estilos()
 
 # ============================================================
 # AYUDANTES (funciones reutilizables)
-# Cada una de estas resume un cálculo que antes se repetía escrito a
-# mano en 2 o 3 pantallas distintas. Ahora cada pantalla solo LLAMA a
-# la función, en vez de repetir la fórmula.
 # ============================================================
 
 def seleccionar_por_indice(lista, etiqueta, texto_item, key):
@@ -481,7 +469,7 @@ if "pagina" not in st.session_state:
 
 
 # ============================================================
-# GENERACIÓN DE PDFs (ahora usando pdf_linea para cada renglón)
+# GENERACIÓN DE PDFs 
 # ============================================================
 
 def pdf_a_bytes(pdf):
@@ -636,8 +624,6 @@ def pantalla_dashboard():
 
 # ============================================================
 # PANTALLA: Gestión Gallineros
-# RF01,02,03,05,06,23,36,41,42 + capacidad/ocupación, estado,
-# tamaño, bitácora de movimientos y duplicar como plantilla.
 # ============================================================
 
 def pantalla_gallineros():
@@ -832,7 +818,7 @@ def pantalla_gallineros():
 
 
 # ============================================================
-# PANTALLA: Registro de Postura (RF07, RF28, RF29)
+# PANTALLA: Registro de Postura 
 # ============================================================
 
 def pantalla_postura():
@@ -887,7 +873,7 @@ def pantalla_postura():
 
 
 # ============================================================
-# PANTALLA: Producción (RF10, RF11, RF38, RF43, RF44 + ranking/gráfica)
+# PANTALLA: Producción 
 # ============================================================
 
 def pantalla_produccion():
@@ -965,7 +951,7 @@ def pantalla_produccion():
 
 
 # ============================================================
-# PANTALLA: Alimentación (RF12-17, RF24-27, RF33-34, RF46)
+# PANTALLA: Alimentación 
 # ============================================================
 
 def pantalla_alimentacion():
@@ -1100,7 +1086,7 @@ def pantalla_alimentacion():
 
 
 # ============================================================
-# PANTALLA: Reportes (RF15, RF18, RF19, RF30, RF35, RF40+RF48)
+# PANTALLA: Reportes 
 # ============================================================
 
 def pantalla_reportes():

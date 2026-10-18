@@ -1,27 +1,15 @@
 """
 Lanzador de escritorio para el Sistema Avícola.
 
-En vez de abrir la app en una pestaña del navegador, esto abre una
-ventana nativa (como cualquier programa de escritorio) que muestra
-por dentro la misma app de Streamlit.
-
-Instalar antes de usar (una sola vez):
-    pip install pywebview
-
 Ejecutar con:
     python desktop_launcher.py
 
-(Ya NO uses 'streamlit run app_streamlit.py' directamente si quieres
-la ventana de escritorio — usa este archivo en su lugar.)
 """
 
 import subprocess
 import time
 import webview
 
-# Por seguridad, pywebview NO permite descargar archivos dentro de su
-# ventana a menos que se lo activemos explícitamente. Sin esta línea,
-# el botón "Descargar PDF" de Streamlit no hace absolutamente nada.
 webview.settings['ALLOW_DOWNLOADS'] = True
 
 URL = "http://localhost:8501"
@@ -41,9 +29,6 @@ def iniciar_streamlit():
 def main():
     proceso = iniciar_streamlit()
 
-    # Le damos unos segundos a Streamlit para que termine de arrancar
-    # antes de intentar abrir la ventana, si no, la ventana cargaría
-    # antes de que el servidor esté listo.
     time.sleep(3)
 
     try:
