@@ -13,7 +13,7 @@ ARCHIVO = "datos.json"
 
 st.set_page_config(page_title="Sistema Avícola", page_icon=":material/egg:", layout="wide")
 
-# Colores de las gráficas (los mismos de la paleta del tema)
+# Colores de las gráficas 
 COLOR_BUENOS = "#14532D"    # verde oscuro para huevos buenos
 COLOR_DANADOS = "#D9776A"   # rojo suave para huevos dañados
 
@@ -309,8 +309,6 @@ def generar_pdf_resumen_gallinero(codigo):
 def pantalla_login():
     col1, col2, col3 = st.columns([1, 1.6, 1])
     with col2:
-        # El key "tarjeta_login" permite darle forma de tarjeta desde
-        # cargar_estilos() (clase CSS .st-key-tarjeta_login).
         with st.container(key="tarjeta_login"):
             st.markdown('<div class="login-marca"><span class="logo">SA</span></div>', unsafe_allow_html=True)
             st.title("Accede")
@@ -520,7 +518,7 @@ def pantalla_gallineros():
         else:
             ocupacion = "—"
 
-        # Estado MANUAL: lo decide el usuario en "Modificar...", no se calcula solo.
+        # Estado MANUAL: lo decide el usuario en "Modificar...".
         estado = datos.get("estado", "Activo")
 
         if datos["aves"] < 20:
@@ -543,7 +541,7 @@ def pantalla_gallineros():
 
 
 # ============================================================
-# PANTALLA: Registro de Postura 
+# PANTALLA: Registro de Postura
 # ============================================================
 
 def pantalla_postura():

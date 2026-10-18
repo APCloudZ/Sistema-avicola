@@ -2,7 +2,7 @@
 
 Aplicación de escritorio para administrar una granja avícola: gallineros, registro de postura, producción, alimentación, gastos y reportes en PDF.
 
-Está hecha en **Python** con **Streamlit** y se abre en una ventana de escritorio gracias a **pywebview**.
+Está hecha en **Python** con **Streamlit** y se abre en una ventana de escritorio gracias a **pywebview**
 
 ## Funcionalidades
 

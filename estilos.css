@@ -1,6 +1,4 @@
 /* ---------- 1. Ocultar menú, encabezado y pie de Streamlit ---------- */
-/* Ojo: no se oculta toda la barra superior (stToolbar) porque ahí
-   está el botón para abrir el menú lateral en ventanas pequeñas. */
 #MainMenu, footer,
 div[data-testid="stToolbarActions"],
 div[data-testid="stMainMenu"],

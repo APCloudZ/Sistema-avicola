@@ -1,9 +1,5 @@
 # ============================================================
 # Tema visual del Sistema Avícola
-# Streamlit lee este archivo automáticamente al arrancar.
-# Aquí se definen los colores base y la tipografía; los detalles
-# finos (sombras, tarjetas, etc.) están en cargar_estilos() dentro
-# de app_streamlit.py.
 # ============================================================
 
 [theme]

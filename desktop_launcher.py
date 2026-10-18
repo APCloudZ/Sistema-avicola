@@ -1,6 +1,9 @@
 """
 Lanzador de escritorio para el Sistema Avícola.
 
+Instalar antes de usar (una sola vez):
+    pip install pywebview
+
 Ejecutar con:
     python desktop_launcher.py
 
@@ -9,6 +12,7 @@ Ejecutar con:
 import subprocess
 import time
 import webview
+
 
 webview.settings['ALLOW_DOWNLOADS'] = True
 
