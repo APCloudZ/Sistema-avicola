@@ -14,8 +14,8 @@ ARCHIVO = "datos.json"
 st.set_page_config(page_title="Sistema Avícola", page_icon=":material/egg:", layout="wide")
 
 # Colores de las gráficas 
-COLOR_BUENOS = "#14532D"    # verde oscuro para huevos buenos
-COLOR_DANADOS = "#D9776A"   # rojo suave para huevos dañados
+COLOR_BUENOS = "#5FD08A"    # verde brillante para huevos buenos (se ve bien en fondo oscuro)
+COLOR_DANADOS = "#E8836F"   # rojo suave para huevos dañados
 
 COLUMNAS_TABLAS = {
     "fecha": "Fecha",
@@ -343,7 +343,7 @@ def pantalla_dashboard():
     c4.metric("Alimento Disponible", f"{alimento['inventario_kg']:.1f} kg")
 
     st.write("")
-    col_chart, col_side = st.columns([3, 1])
+    col_chart, col_side = st.columns([2.4, 1])
 
     with col_chart:
         st.subheader("Producción registrada")

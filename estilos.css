@@ -1,3 +1,25 @@
+/* ============================================================
+   Estilo "Liquid Glass" del Sistema Avícola
+   Idea: fondo oscuro con resplandores de color difuminados, y encima
+   tarjetas de "vidrio" (semitransparentes, con desenfoque y un borde
+   fino brillante). Solo cambia la apariencia, nunca los datos.
+   ============================================================ */
+
+/* ---------- 0. Colores reutilizables (variables CSS) ---------- */
+:root {
+    --verde: #5FD08A;              /* acento principal (verde brillante) */
+    --verde-oscuro: #14532D;       /* verde de marca */
+    --ambar: #E39A4B;              /* acento cálido, tono tierra */
+    --texto: #ECF2EC;
+    --texto-suave: rgba(236, 242, 236, 0.62);
+    --vidrio: rgba(255, 255, 255, 0.06);        /* relleno del vidrio */
+    --vidrio-fuerte: rgba(255, 255, 255, 0.10);
+    --borde-vidrio: rgba(255, 255, 255, 0.13);  /* borde fino del vidrio */
+    --sombra-vidrio: inset 0 1px 0 rgba(255, 255, 255, 0.10),
+                     0 10px 30px rgba(0, 0, 0, 0.35);
+    --radio: 18px;
+}
+
 /* ---------- 1. Ocultar menú, encabezado y pie de Streamlit ---------- */
 #MainMenu, footer,
 div[data-testid="stToolbarActions"],
@@ -13,40 +35,67 @@ header[data-testid="stHeader"] {
     background: transparent !important;
 }
 
-/* ---------- 2. Márgenes generales de la página ---------- */
+/* ---------- 2. Fondo con resplandores (lo que se ve "detrás del vidrio") ---------- */
+.stApp {
+    background:
+        radial-gradient(900px 600px at 95% 100%, rgba(227, 154, 75, 0.30), transparent 60%),
+        radial-gradient(700px 500px at 0% 0%, rgba(95, 208, 138, 0.18), transparent 60%),
+        radial-gradient(600px 400px at 60% 30%, rgba(20, 83, 45, 0.35), transparent 70%),
+        #0C110E;
+    background-attachment: fixed;
+}
 .block-container {
     padding-top: 2rem;
     padding-bottom: 3rem;
     max-width: 1200px;
 }
 
-/* ---------- 3. Títulos con jerarquía clara ---------- */
+/* ---------- 3. Títulos ---------- */
 h1 {
-    color: #14532D !important;
-    font-size: 2.3rem !important;
+    color: var(--texto) !important;
+    font-size: 2.2rem !important;
     font-weight: 700 !important;
     letter-spacing: -0.02em;
     padding-bottom: 0.2rem !important;
     margin-bottom: 0 !important;
 }
 h2, h3 {
-    color: #1F3D2B !important;
-    font-size: 1.4rem !important;
+    color: var(--texto) !important;
+    font-size: 1.3rem !important;
     font-weight: 600 !important;
     margin-top: 1.2rem !important;
 }
 h5 {
-    color: #14532D;
+    color: var(--verde) !important;
     font-weight: 600 !important;
 }
+[data-testid="stCaptionContainer"] {
+    color: var(--texto-suave) !important;
+}
 
-/* ---------- 4. Tarjetas de métricas (st.metric) ---------- */
+/* ---------- 4. El "vidrio": se aplica a tarjetas, paneles y tablas ---------- */
+div[data-testid="stMetric"],
+div[data-testid="stExpander"] details,
+div[data-testid="stDataFrame"],
+div[data-testid="stVegaLiteChart"],
+.st-key-tarjeta_login,
+.estado-vacio {
+    background: var(--vidrio) !important;
+    border: 1px solid var(--borde-vidrio) !important;
+    border-radius: var(--radio) !important;
+    box-shadow: var(--sombra-vidrio);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+/* ---------- 5. Tarjetas de métricas ---------- */
 div[data-testid="stMetric"] {
-    background: #FFFFFF;
-    border: 1px solid #E3E0D1;
-    border-radius: 14px;
     padding: 16px 18px;
-    box-shadow: 0 2px 8px rgba(20, 83, 45, 0.07);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+div[data-testid="stMetric"]:hover {
+    background: var(--vidrio-fuerte) !important;
+    transform: translateY(-2px);
 }
 /* white-space: normal evita que la etiqueta se corte con "..." */
 [data-testid="stMetricLabel"],
@@ -57,73 +106,77 @@ div[data-testid="stMetric"] {
     overflow: visible !important;
 }
 [data-testid="stMetricLabel"] p {
-    color: #6B6A5E;
+    color: var(--texto-suave);
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
 }
 div[data-testid="stMetricValue"] {
-    color: #14532D;
+    color: var(--texto);
     font-weight: 700;
     /* clamp: el número se achica solo en ventanas pequeñas */
     font-size: clamp(1.2rem, 1.9vw, 1.75rem);
 }
 
-/* ---------- 5. Botones ---------- */
-/* Todos los botones: esquinas redondeadas y transición suave */
+/* ---------- 6. Botones tipo "píldora" ---------- */
 .stButton button, .stDownloadButton button {
     white-space: normal;   /* textos largos bajan de línea en vez de cortarse */
-    border-radius: 10px;
+    border-radius: 999px;
     font-weight: 600;
-    padding: 0.5rem 1.1rem;
+    padding: 0.5rem 1.2rem;
     transition: all 0.15s ease;
 }
 .stButton button *, .stDownloadButton button * {
     white-space: normal !important;
     text-overflow: clip !important;
 }
-/* Botón primario: verde lleno */
+/* Primario: verde brillante con resplandor */
 button[data-testid="stBaseButton-primary"] {
-    background: #14532D;
-    border: 1px solid #14532D;
-    color: #FFFFFF;
+    background: linear-gradient(135deg, #6FE09A, #3FAE6B) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #08130C !important;
+    box-shadow: 0 6px 20px rgba(95, 208, 138, 0.30);
 }
 button[data-testid="stBaseButton-primary"]:hover {
-    background: #0F3F22;
-    border-color: #0F3F22;
-    box-shadow: 0 4px 12px rgba(20, 83, 45, 0.25);
+    box-shadow: 0 8px 26px rgba(95, 208, 138, 0.45);
     transform: translateY(-1px);
 }
-/* Botón secundario: fondo blanco con borde verde */
+/* Secundario: vidrio */
 button[data-testid="stBaseButton-secondary"] {
-    background: #FFFFFF;
-    border: 1px solid #B9C7B4;
-    color: #14532D;
+    background: var(--vidrio) !important;
+    border: 1px solid var(--borde-vidrio) !important;
+    color: var(--texto) !important;
+    backdrop-filter: blur(12px);
 }
 button[data-testid="stBaseButton-secondary"]:hover {
-    background: #EEF5EC;
-    border-color: #14532D;
-    color: #14532D;
+    background: var(--vidrio-fuerte) !important;
+    border-color: rgba(95, 208, 138, 0.55) !important;
+    color: var(--verde) !important;
     transform: translateY(-1px);
 }
 
-/* ---------- 6. Barra lateral ---------- */
-/* Logo: un cuadrado redondeado con las iniciales "SA" */
+/* ---------- 7. Barra lateral de vidrio ---------- */
+section[data-testid="stSidebar"] {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-right: 1px solid var(--borde-vidrio);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+section[data-testid="stSidebar"] > div {
+    background: transparent !important;
+}
+/* Logo: cuadrado redondeado con las iniciales "SA" */
 .logo {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 10px;
-    background: #14532D;
-    color: #FFFFFF;
-    font-weight: 700;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6FE09A, #2F8F55);
+    color: #08130C;
+    font-weight: 800;
     font-size: 1rem;
-    letter-spacing: 0.02em;
-}
-.logo-claro {
-    background: #F1F5EE;
-    color: #14532D;
+    box-shadow: 0 6px 18px rgba(95, 208, 138, 0.35);
 }
 .sidebar-marca {
     display: flex;
@@ -132,21 +185,21 @@ button[data-testid="stBaseButton-secondary"]:hover {
     margin-bottom: 1.4rem;
 }
 .sidebar-titulo {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: #FFFFFF;
+    color: var(--texto);
     line-height: 1.2;
 }
 .sidebar-subtitulo {
     font-size: 0.8rem;
-    color: #BBE5C8;
+    color: var(--texto-suave);
 }
 /* Etiqueta "Menú" en mayúsculas pequeñas */
 section[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
     text-transform: uppercase;
-    font-size: 0.75rem !important;
-    letter-spacing: 0.08em;
-    color: #A9CDB4 !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.1em;
+    color: var(--texto-suave) !important;
 }
 /* El menú ocupa todo el ancho de la barra lateral */
 section[data-testid="stSidebar"] div[data-testid="stElementContainer"]:has(div[role="radiogroup"]),
@@ -154,83 +207,130 @@ section[data-testid="stSidebar"] div[data-testid="stRadio"],
 section[data-testid="stSidebar"] div[role="radiogroup"] {
     width: 100% !important;
 }
-/* Cada opción del menú como un renglón amplio */
+/* Cada opción del menú: un renglón tipo píldora */
 section[data-testid="stSidebar"] div[role="radiogroup"] label {
     width: 100%;
-    padding: 0.55rem 0.75rem;
-    margin-bottom: 0.2rem;
-    border-radius: 10px;
-    transition: background 0.15s ease;
+    padding: 0.55rem 0.85rem;
+    margin-bottom: 0.25rem;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    color: var(--texto-suave);
+    transition: all 0.15s ease;
 }
 section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--vidrio);
+    color: var(--texto);
 }
 /* Se ocultan los circulitos del radio: el menú parece una lista */
 section[data-testid="stSidebar"] label[data-testid="stRadioOption"] > div > div > div:first-child:not([data-testid]) {
     display: none;
 }
-/* Opción seleccionada: resaltada */
+/* Opción seleccionada: vidrio verde con brillo */
 section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-    background: rgba(255, 255, 255, 0.16);
+    background: linear-gradient(135deg, rgba(95, 208, 138, 0.28), rgba(95, 208, 138, 0.10));
+    border-color: rgba(95, 208, 138, 0.45);
+    color: var(--texto);
     font-weight: 600;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 6px 18px rgba(95, 208, 138, 0.15);
 }
-/* Botón "Cerrar sesión": transparente con borde claro */
-.st-key-btn_cerrar_sesion button {
-    background: transparent !important;
-    border: 1px solid rgba(255, 255, 255, 0.35) !important;
-    color: #F1F5EE !important;
-}
+/* Botón "Cerrar sesión": vidrio que se vuelve rojizo al pasar el cursor */
 .st-key-btn_cerrar_sesion button:hover {
-    background: rgba(217, 119, 106, 0.25) !important;
+    background: rgba(217, 119, 106, 0.18) !important;
     border-color: #D9776A !important;
+    color: #F2A397 !important;
 }
 
-/* ---------- 7. Pantalla de login (tarjeta centrada) ---------- */
+/* ---------- 8. Pantalla de login (tarjeta de vidrio centrada) ---------- */
 .st-key-tarjeta_login {
-    background: #FFFFFF;
-    border: 1px solid #E3E0D1;
-    border-radius: 18px;
     padding: 2.5rem 2.25rem;
     margin-top: 8vh;
-    box-shadow: 0 10px 30px rgba(20, 83, 45, 0.10);
 }
 .login-marca {
     margin-bottom: 0.25rem;
 }
 
-/* ---------- 8. Tablas, alertas, expanders y selectores ---------- */
-div[data-testid="stDataFrame"] {
-    border: 1px solid #E3E0D1;
-    border-radius: 12px;
-    overflow: hidden;
-}
-div[data-testid="stAlert"] {
-    border-radius: 12px;
-}
-div[data-testid="stExpander"] details {
-    background: #FFFFFF;
-    border: 1px solid #E3E0D1;
-    border-radius: 12px;
-}
+/* ---------- 9. Expanders, tablas, gráficas, alertas y campos ---------- */
 div[data-testid="stExpander"] summary {
     font-weight: 600;
-    color: #1F3D2B;
+    color: var(--texto);
 }
+div[data-testid="stExpander"] summary:hover {
+    color: var(--verde);
+}
+div[data-testid="stDataFrame"] {
+    overflow: hidden;
+    padding: 4px;
+}
+/* Gráficas: el vidrio recorta las esquinas (sin relleno, para que no se salga) */
+div[data-testid="stVegaLiteChart"] {
+    overflow: hidden;
+    padding: 0;
+}
+/* Alertas (st.info, st.warning, st.success, st.error) como vidrio.
+   Cada tipo conserva un tinte suave de su color para distinguirse. */
+div[data-testid="stAlert"] > div {
+    border-radius: 14px !important;
+    background: var(--vidrio) !important;
+    border: 1px solid var(--borde-vidrio) !important;
+    box-shadow: var(--sombra-vidrio);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+/* Info: vidrio neutro con texto suave (avisos tipo "sin datos") */
+div[data-testid="stAlert"]:has([data-testid="stAlertContentInfo"]) > div {
+    border-left: 3px solid rgba(236, 242, 236, 0.35) !important;
+}
+[data-testid="stAlertContentInfo"],
+[data-testid="stAlertContentInfo"] * {
+    color: var(--texto-suave) !important;
+}
+/* Advertencia: tinte ámbar (tono tierra) */
+div[data-testid="stAlert"]:has([data-testid="stAlertContentWarning"]) > div {
+    background: linear-gradient(135deg, rgba(227, 154, 75, 0.16), rgba(227, 154, 75, 0.05)) !important;
+    border-color: rgba(227, 154, 75, 0.35) !important;
+}
+[data-testid="stAlertContentWarning"],
+[data-testid="stAlertContentWarning"] * {
+    color: #F1C089 !important;
+}
+/* Éxito: tinte verde */
+div[data-testid="stAlert"]:has([data-testid="stAlertContentSuccess"]) > div {
+    background: linear-gradient(135deg, rgba(95, 208, 138, 0.16), rgba(95, 208, 138, 0.05)) !important;
+    border-color: rgba(95, 208, 138, 0.35) !important;
+}
+[data-testid="stAlertContentSuccess"],
+[data-testid="stAlertContentSuccess"] * {
+    color: #9BE7B6 !important;
+}
+/* Error: tinte rojo suave */
+div[data-testid="stAlert"]:has([data-testid="stAlertContentError"]) > div {
+    background: linear-gradient(135deg, rgba(232, 131, 111, 0.18), rgba(232, 131, 111, 0.05)) !important;
+    border-color: rgba(232, 131, 111, 0.40) !important;
+}
+[data-testid="stAlertContentError"],
+[data-testid="stAlertContentError"] * {
+    color: #F4AE9F !important;
+}
+/* Cajas de texto, números, fechas y listas: vidrio oscuro */
+div[data-baseweb="input"],
 div[data-baseweb="select"] > div,
-div[data-baseweb="input"] {
-    border-radius: 10px;
+div[data-baseweb="base-input"] {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: var(--borde-vidrio) !important;
+    border-radius: 12px !important;
+}
+hr {
+    border-color: var(--borde-vidrio) !important;
 }
 
-/* ---------- 9. Estados vacíos (cuando no hay datos) ---------- */
+/* ---------- 10. Estados vacíos (cuando no hay datos) ---------- */
 .estado-vacio {
     text-align: center;
-    background: #FFFFFF;
-    border: 1px dashed #C9C5B2;
-    border-radius: 14px;
+    border-style: dashed !important;
     padding: 2rem 1.5rem;
     margin: 0.5rem 0 1rem 0;
 }
-/* Ícono dentro de un círculo verde claro (letra de íconos Material) */
+/* Ícono dentro de un círculo de vidrio verde (letra de íconos Material) */
 .estado-vacio .icono {
     display: inline-flex;
     align-items: center;
@@ -238,24 +338,25 @@ div[data-baseweb="input"] {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: #E6F0E3;
-    color: #14532D;
+    background: rgba(95, 208, 138, 0.15);
+    border: 1px solid rgba(95, 208, 138, 0.35);
+    color: var(--verde);
     font-family: "Material Symbols Rounded";
     font-size: 30px;
 }
 .estado-vacio .titulo {
     font-weight: 600;
     font-size: 1.05rem;
-    color: #1F3D2B;
-    margin-top: 0.4rem;
+    color: var(--texto);
+    margin-top: 0.5rem;
 }
 .estado-vacio .mensaje {
-    color: #6B6A5E;
+    color: var(--texto-suave);
     font-size: 0.92rem;
     margin-top: 0.2rem;
 }
 
-/* ---------- 10. Pantallas pequeñas ---------- */
+/* ---------- 11. Pantallas pequeñas ---------- */
 @media (max-width: 900px) {
     .block-container {
         padding-left: 1rem;

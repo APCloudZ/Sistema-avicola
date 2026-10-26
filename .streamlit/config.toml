@@ -3,24 +3,24 @@
 # ============================================================
 
 [theme]
-base = "light"
-primaryColor = "#14532D"              # verde oscuro: color principal
-backgroundColor = "#F6F5EF"           # fondo claro, tono hueso
-secondaryBackgroundColor = "#ECEBE1"  # fondo de cajas de texto y selectores
-textColor = "#1F2A22"                 # texto casi negro, buen contraste
-borderColor = "#DAD7C8"               # bordes suaves color tierra
-baseRadius = "10px"                   # esquinas redondeadas
+base = "dark"                         # tema oscuro (estilo "Liquid Glass")
+primaryColor = "#5FD08A"              # verde brillante: color principal
+backgroundColor = "#0C110E"           # fondo casi negro con tinte verde
+secondaryBackgroundColor = "#18211B"  # fondo de cajas de texto y selectores
+textColor = "#ECF2EC"                 # texto claro, buen contraste
+borderColor = "#2C3830"               # bordes suaves
+baseRadius = "12px"                   # esquinas redondeadas
 # Tipografía Inter (se descarga de Google Fonts; si no hay internet,
 # Streamlit usa automáticamente una letra sin serifa del sistema).
-font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
 
-# Colores de la barra lateral (verde oscuro con texto claro)
+# Barra lateral: el efecto de vidrio se dibuja en estilos.css
 [theme.sidebar]
-backgroundColor = "#14532D"
-secondaryBackgroundColor = "#1D6B3C"
-textColor = "#F1F5EE"
-primaryColor = "#BBE5C8"
-borderColor = "#2F7A4B"
+backgroundColor = "#0C110E"
+secondaryBackgroundColor = "#18211B"
+textColor = "#ECF2EC"
+primaryColor = "#5FD08A"
+borderColor = "#2C3830"
 
 [client]
 # Oculta el menú de desarrollador (botón "Deploy", etc.)
